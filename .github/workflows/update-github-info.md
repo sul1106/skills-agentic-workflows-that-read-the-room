@@ -4,9 +4,6 @@ description: Refresh the GitHub Info page with useful updates from official GitH
 on:
   schedule: daily
   workflow_dispatch:
-vars:
-  GH_AW_MODEL_AGENT_COPILOT: 'auto'
-  GH_AW_DEFAULT_MODEL_COPILOT: 'auto'
 permissions:
   contents: read
 tools:

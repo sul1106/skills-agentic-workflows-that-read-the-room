@@ -151,6 +151,27 @@ jobs:
             setupGlobals(core, github, context, exec, io, getOctokit);
             const { main } = require(path.join(actionsDir, 'generate_aw_info.cjs'));
             await main(core, context);
+
+      - name: Debug resolved Copilot model
+        if: always()
+        run: |
+          echo "=== Copilot model debug ==="
+          echo "generate_aw_info.outputs.model='${{ steps.generate_aw_info.outputs.model || '' }}'"
+          echo "needs.activation.outputs.model='${{ needs.activation.outputs.model || '' }}'"
+          echo "vars.GH_AW_MODEL_AGENT_COPILOT='${{ vars.GH_AW_MODEL_AGENT_COPILOT || '' }}'"
+          echo "vars.GH_AW_DEFAULT_MODEL_COPILOT='${{ vars.GH_AW_DEFAULT_MODEL_COPILOT || '' }}'"
+          echo "env GH_AW_INFO_MODEL='${{ env.GH_AW_INFO_MODEL || '' }}'"
+          echo "env COPILOT_MODEL='${{ env.COPILOT_MODEL || '' }}'"
+      - name: Debug resolved Copilot model
+        if: always()
+        run: |
+          echo "=== workflow model debug ==="
+          echo "generate_aw_info output model: '${{ steps.generate_aw_info.outputs.model || '' }}'"
+          echo "needs.activation output model: '${{ needs.activation.outputs.model || '' }}'"
+          echo "repo var GH_AW_MODEL_AGENT_COPILOT: '${{ vars.GH_AW_MODEL_AGENT_COPILOT || '' }}'"
+          echo "repo var GH_AW_DEFAULT_MODEL_COPILOT: '${{ vars.GH_AW_DEFAULT_MODEL_COPILOT || '' }}'"
+          echo "runtime env GH_AW_INFO_MODEL: '${{ env.GH_AW_INFO_MODEL || '' }}'"
+          echo "runtime env COPILOT_MODEL: '${{ env.COPILOT_MODEL || '' }}'"
       - name: Restore daily AIC scan observations
         id: restore-daily-aic-cache-fallback
         if: ${{ env.GH_AW_MAX_DAILY_AI_CREDITS != '' }}
